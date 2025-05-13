@@ -1,5 +1,5 @@
 ﻿using Dumpify;
-using IpAnalyzer;
+using IP_Analyzer;
 using System.Buffers.Binary;
 using System.Net;
 using System.Net.Sockets;

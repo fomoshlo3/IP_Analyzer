@@ -1,12 +1,12 @@
 ﻿using Xunit;
-using IpAnalyzer;
+using IP_Analyzer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IpAnalyzer.Tests
+namespace IP_Analyzer.Tests
 {
     public class AnalyzerTests
     {
@@ -14,7 +14,7 @@ namespace IpAnalyzer.Tests
         public void CreateNetworkInfo_ReturnsExpectedNetworkInfo()
         {
             // Arrange
-            var input = new[] { "192.168.1.10", "24" };
+            string[] input = ["192.168.1.10", "24"];
             var analyzer = new Analyzer(input);
 
             // Act

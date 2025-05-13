@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IpAnalyzer
+namespace IP_Analyzer
 {
     public class Analyzer
     {

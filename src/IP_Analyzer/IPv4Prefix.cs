@@ -1,4 +1,4 @@
-﻿namespace IpAnalyzer
+﻿namespace IP_Analyzer
 {
     public sealed class IPv4Prefix
     {

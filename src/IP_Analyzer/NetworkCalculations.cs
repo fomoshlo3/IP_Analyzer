@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace IpAnalyzer
+namespace IP_Analyzer
 {
     internal static class NetworkCalculations
     {
@@ -14,7 +14,7 @@ namespace IpAnalyzer
             for (int i = 0; i < 4; i++)
             {
                 // Shift the mask to the right by 24, 16, 8, and 0 bits respectively to get each byte
-                bytes[i] = (byte)((mask >>  24 - (i * 8)) & 0xff);
+                bytes[i] = (byte)(mask >>  24 - i * 8 & 0xff);
             }
 
             return new IPv4Address(bytes);

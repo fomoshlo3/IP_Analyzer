@@ -1,7 +1,7 @@
-using IpAnalyzer;
+using IP_Analyzer;
 using Xunit;
 
-namespace IpAnalyzer.Tests
+namespace IP_Analyzer.Tests
 {
     public class IPv4PrefixTests
     {
