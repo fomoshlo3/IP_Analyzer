@@ -30,34 +30,34 @@ namespace IP_Analyzer
             return new IPv4Address(bytes);
         }
 
-        internal static IPv4Address GetBroadcast(IPv4Address networkAddress, IPv4Address subnetMask)
+        internal static IPv4Address GetBroadcast(IPv4Address networkId, IPv4Address subnetMask)
         {
-            byte[] bytes = new byte[4];
+            byte[] broadcast = new byte[4];
             for (int i = 0; i < 4; i++)
             {
-                bytes[i] = (byte)(networkAddress.Address[i] | ~subnetMask.Address[i]);
+                broadcast[i] = (byte)(networkId.Address[i] | ~subnetMask.Address[i]);
             }
-            return new IPv4Address(bytes);
+            return new IPv4Address(broadcast);
         }
 
-        internal static IPv4Address GetFirstHost(IPv4Address networkAddress)
+        internal static IPv4Address GetFirstHost(IPv4Address networkId)
         {
-            var firstUsableAddress = new byte[4];
+            var firstHost = new byte[4];
             
-            Array.Copy(networkAddress.Address, firstUsableAddress, 4);
+            Array.Copy(networkId.Address, firstHost, 4);
 
-            firstUsableAddress[3] += 1; // Increment the last byte to get the first usable address
-            return new IPv4Address(firstUsableAddress);
+            firstHost[3] += 1; // Increment the last byte to get the first usable address
+            return new IPv4Address(firstHost);
         }
 
-        internal static IPv4Address GetLastHost(IPv4Address broadcastAddress)
+        internal static IPv4Address GetLastHost(IPv4Address broadcast)
         {
-            var lastUsableAddress = new byte[4];
+            var lastHost = new byte[4];
 
-            Array.Copy(broadcastAddress.Address, lastUsableAddress, 4);
-            lastUsableAddress[3] -= 1; // Decrement the last byte to get the last usable address
+            Array.Copy(broadcast.Address, lastHost, 4);
+            lastHost[3] -= 1; // Decrement the last byte to get the last usable address
 
-            return new IPv4Address(lastUsableAddress);
+            return new IPv4Address(lastHost);
         }
 
         internal static int GetTotalUsableHosts(IPv4Prefix prefix)
