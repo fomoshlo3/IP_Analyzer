@@ -1,5 +1,6 @@
 ﻿using Dumpify;
 using IP_Analyzer;
+using IP_Analyzer.Services;
 using System.Buffers.Binary;
 using System.Net;
 using System.Net.Sockets;
@@ -12,6 +13,9 @@ namespace IPAnalyzer.Console
         {
             try
             {
+                JsonStorage.CreateDirectory();
+
+
                 if(args.Length != 1)
                 {
                     "Usage: IPAnalyzer <IP Address/CIDR Prefix>".DumpConsole();
@@ -23,7 +27,12 @@ namespace IPAnalyzer.Console
                 var analyzer = new Analyzer(input);
                 var output = analyzer.CreateNetworkInfo();
 
-                output.Dump();
+                analyzer.NetworkInfo = output;
+
+                JsonStorage.Save(analyzer.NetworkInfo);
+                analyzer.NetworkInfo = JsonRetrieval.Load();
+
+                analyzer.NetworkInfo.Dump();
             }
             catch (Exception ex)
             {

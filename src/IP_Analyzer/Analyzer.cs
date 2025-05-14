@@ -10,6 +10,7 @@ namespace IP_Analyzer
     {
         internal IPv4Address GivenAddress { get; }
         internal IPv4Prefix GivenPrefix { get; }
+        public NetworkInfo NetworkInfo { get; set; } = null!;
 
         public Analyzer(string[] input)
         {
