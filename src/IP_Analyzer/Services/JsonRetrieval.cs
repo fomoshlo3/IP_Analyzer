@@ -17,11 +17,9 @@ namespace IP_Analyzer.Services
         private static readonly JsonSerializerOptions _options = new()
         {
             ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.Preserve,
-            IncludeFields = true,
-            MaxDepth = 3
         };
 
-        public static NetworkInfo Load()
+        public static IEnumerable<NetworkInfo> Load()
         {
             string historyFilePath = Path.Combine(AppDataPath, HISTORY_FILE_NAME);
 
@@ -33,8 +31,14 @@ namespace IP_Analyzer.Services
             }
             else
             {
-                NetworkInfo data = JsonSerializer.Deserialize<NetworkInfoDTO>(json, _options)?.MapToNetworkInfo() 
-                    ?? throw new Exception("Failed to deserialize the data from the history file.");
+                ICollection<NetworkInfo> data = [];
+                var savedHistory = JsonSerializer.Deserialize<IEnumerable<NetworkInfoDTO>>(json, _options) ?? throw new Exception("NetworkInfo could not be deserialized.");
+                
+                foreach(var dto in savedHistory)
+                {
+                    var networkInfo = dto.MapToNetworkInfo();
+                    data.Add(networkInfo);
+                }
                 return data;
             }
         }

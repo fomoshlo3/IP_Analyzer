@@ -13,9 +13,10 @@ namespace IPAnalyzer.Console
         {
             try
             {
+                // Erstelle einen Ordner
                 JsonStorage.CreateDirectory();
 
-
+                // validate Input with Feedback
                 if(args.Length != 1)
                 {
                     "Usage: IPAnalyzer <IP Address/CIDR Prefix>".DumpConsole();
@@ -24,15 +25,26 @@ namespace IPAnalyzer.Console
 
                 string[] input = args[0].Split('/');
 
+                // instantiate Factory class
                 var analyzer = new Analyzer(input);
+
+                // load history from file
+                analyzer.AddRangeToHistory(JsonRetrieval.Load());
+
+                // create NetworkInfo object
                 var output = analyzer.CreateNetworkInfo();
 
-                analyzer.NetworkInfo = output;
+                // add latest calculation to history
+                analyzer.AddToHistory(output);
 
-                JsonStorage.Save(analyzer.NetworkInfo);
-                analyzer.NetworkInfo = JsonRetrieval.Load();
+                // save history to file
+                JsonStorage.Save(analyzer.History);
 
-                analyzer.NetworkInfo.Dump();
+                // print the result to console
+                foreach(var info in analyzer.History)
+                {
+                    info.Dump();
+                }
             }
             catch (Exception ex)
             {

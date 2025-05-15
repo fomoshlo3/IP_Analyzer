@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace IP_Analyzer.Services
 {
@@ -29,11 +24,20 @@ namespace IP_Analyzer.Services
             }
         }
 
-        public static void Save(NetworkInfo info)
+        public static void Save(IEnumerable<NetworkInfo> infoHistory)
         {
-            var dto = info.MapToDTO();
+            ICollection<NetworkInfoDTO> dtoList = [];
+            foreach (var info in infoHistory)
+            {
+                if (info is null)
+                {
+                    throw new ArgumentNullException(nameof(info), "NetworkInfo cannot be null.");
+                }
+                var dto = info.MapToDTO();
+                dtoList.Add(dto);
+            }
 
-            string json = JsonSerializer.Serialize(dto, _options);
+            string json = JsonSerializer.Serialize(dtoList, _options);
             File.WriteAllText(Path.Combine(AppDataPath, HISTORY_FILE_NAME), json);
         }
     }

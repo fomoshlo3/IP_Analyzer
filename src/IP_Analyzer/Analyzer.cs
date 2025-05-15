@@ -10,7 +10,7 @@ namespace IP_Analyzer
     {
         internal IPv4Address GivenAddress { get; }
         internal IPv4Prefix GivenPrefix { get; }
-        public NetworkInfo NetworkInfo { get; set; } = null!;
+        public Queue<NetworkInfo> History { get; set; } = new();
 
         public Analyzer(string[] input)
         {
@@ -37,5 +37,23 @@ namespace IP_Analyzer
                 totalHosts
             );
         }
+
+        public void AddToHistory(NetworkInfo networkInfo)
+        {
+            History.Enqueue(networkInfo);
+            if (History.Count > 3)
+            {
+                History.Dequeue();
+            }
+        }
+
+        public void AddRangeToHistory(IEnumerable<NetworkInfo> networkInfos)
+        {
+            foreach (var networkInfo in networkInfos)
+            {
+                AddToHistory(networkInfo);
+            }
+        }
+
     }
 }

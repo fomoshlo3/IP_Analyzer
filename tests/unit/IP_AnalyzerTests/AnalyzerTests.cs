@@ -23,11 +23,11 @@ namespace IP_Analyzer.Tests
             // Assert
             Assert.Equal("192.168.1.10", networkInfo.Address.ToString());
             Assert.Equal("255.255.255.0", networkInfo.SubnetMask.ToString());
-            Assert.Equal("192.168.1.255", networkInfo.BroadcastAddress.ToString());
-            Assert.Equal("192.168.1.0", networkInfo.NetworkAddress.ToString());
-            Assert.Equal("192.168.1.1", networkInfo.FirstUsableAddress.ToString());
-            Assert.Equal("192.168.1.254", networkInfo.LastUsableAddress.ToString());
-            Assert.Equal(254, networkInfo.TotalUsableAddresses);
+            Assert.Equal("192.168.1.255", networkInfo.Broadcast.ToString());
+            Assert.Equal("192.168.1.0", networkInfo.NetworkId.ToString());
+            Assert.Equal("192.168.1.1", networkInfo.FirstHost.ToString());
+            Assert.Equal("192.168.1.254", networkInfo.LastHost.ToString());
+            Assert.Equal(254, networkInfo.TotalHosts);
         }
 
         [Theory]
@@ -47,11 +47,11 @@ namespace IP_Analyzer.Tests
             // Assert
             Assert.Equal(ip, networkInfo.Address.ToString());
             Assert.Equal(expectedMask, networkInfo.SubnetMask.ToString());
-            Assert.Equal(expectedBroadcast, networkInfo.BroadcastAddress.ToString());
-            Assert.Equal(expectedNetId, networkInfo.NetworkAddress.ToString());
-            Assert.Equal(expectedFirstHost, networkInfo.FirstUsableAddress.ToString());
-            Assert.Equal(expectedLastHost, networkInfo.LastUsableAddress.ToString());
-            Assert.Equal(expectedTotalHosts, networkInfo.TotalUsableAddresses);
+            Assert.Equal(expectedBroadcast, networkInfo.Broadcast.ToString());
+            Assert.Equal(expectedNetId, networkInfo.NetworkId.ToString());
+            Assert.Equal(expectedFirstHost, networkInfo.FirstHost.ToString());
+            Assert.Equal(expectedLastHost, networkInfo.LastHost.ToString());
+            Assert.Equal(expectedTotalHosts, networkInfo.TotalHosts);
         }
     }
 }
